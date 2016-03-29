@@ -47,6 +47,17 @@ defaults= { 'protocol':'udp', 'port':53, 'opcode':Opcode.QUERY,
             'qtype':Type.A, 'rd':1, 'timing':1, 'timeout': 30, 'server_rotate': 0,
             'server': [] }
 
+def contextOsResolvConf(func):
+    import sys
+    global defaults
+    def wrapper(*args, **kwargs):
+        if sys.platform == 'win32':
+            defaults['server'].append('8.8.8.8')
+        else:
+            return func(*args, **kwargs)
+    return wrapper
+
+@contextOsResolvConf
 def ParseResolvConf(resolv_path="/etc/resolv.conf"):
     "parses the /etc/resolv.conf file and sets defaults for name servers"
     with open(resolv_path, 'r') as stream:
