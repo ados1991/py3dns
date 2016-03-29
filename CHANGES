@@ -1,0 +1,54 @@
+3.1.0 Thu Apr 24 23:52:00 EDT 2014
+ * Raise DNSError when no nameservers have been found by the time a
+   Base.DNSRequest object is initialized
+ * Add new DNS.DnsRequest.qry function to supercede DNS.DnsRequest.req to
+   allow for non-backward compatible changes to be made in .qry while
+   maintaining full backward compatibility with 3.0.3 and later in the 3.0
+   series in .req
+ * Add options for 'resulttype' to DnsResult.qry to allow for binary, integer,
+   or text data to be returned for IP addresses
+ * The default result type for IPv4 and IPv6 addresses in DNS.DnsRequest.qry
+   is an ipaddress object
+ * The ipaddress module is used internally.  This is included in python3.3 and
+   the ipaddr-py module from https://code.google.com/p/ipaddr-py/ can be used
+   with python3.2
+ * New unittest based test suite - thanks to Diane Trout
+
+3.0.4 Wed Aug  7 02:25:00 EDT 2013
+
+ * Fix timeouts associated with only one of several available nameservers
+   being unavailable(LP: #1209071):
+   - Only raise timeout error after trying all available servers
+   - Stop lookups once an answer is gotten
+ * Removed unmaintained spec files
+
+3.0.3 Wed May 29 00:05:00 EDT 2013
+
+ * Revert returning IPv6 addresses from AAAA lookups as string.  Causing
+   incompatiblities that are deeply annoying to fix on the other end.
+
+3.0.2 Thu Jan 19 10:59:00 EST 2012
+
+ * Add more granular exception sub classes of DNSError, see SF #3388075
+   - Thanks to Julian Mehnle for the patch
+ * Add AAAA record support, works like A records
+   - Thanks to Shane Kerr for the patch
+
+3.0.1 Mon Jul 18 19:46:30 EDT 2011
+
+ * Add CHANGES to document post-Python 3 port changes
+ * Add LICENSE file
+ * Port pydns 2.3.5 changes to py3dns
+   - Handle large TCP replies (change to blocking IO with timeout)
+   - Add new lazy.dnslookup function to retrieve answer data for any query
+     type
+   - Add large TCP reply test to tests/test.py
+ * Add automatic name server discovery for OS X
+
+3.0.0 Wed Feb  9 23:35:22 EST 2011
+
+Ported to Python3 by Scott Kitterman <scott@kitterman.com>.  This is mostly a
+minimal port to work with Python3 (tested with python3.2) plus addition of
+some of the patches that people have submitted on Sourceforge.  It should be
+fully API compatible with 2.3.
+
