@@ -89,7 +89,7 @@ def _DiscoverNameServers():
     if sys.platform in ('win32', 'nt'):
         from . import win32dns
         defaults['server']=win32dns.RegistryResolve()
-    if sys.platform == 'darwin':
+    elif sys.platform == 'darwin':
         ParseOSXSysConfig()
     else:
         return ParseResolvConf()
